@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="page-header">
+    <div class="page-tabs">
+      <ng-container *ngFor="let page of pages; let i = index">
+        <div class="tab"
+             [class.active]="activePage === page"
+             (click)="selectPage(page)"
+             (dragover)="onDragOver($event, i)"
+             (drop)="onDrop($event, i)"
+             draggable="true"
+             (dragstart)="onDragStart($event, i)"
+             [class.hover]="hoveredIndex === i"
+             (mouseover)="hoveredIndex = i"
+             (mouseleave)="hoveredIndex = null">
+          <span>{{ page.name }}</span>
+          <div class="context-menu"
+               *ngIf="contextMenuIndex === i"
+               (mouseleave)="closeContextMenu()">
+            <button class="menu-item" (click)="setAsFirstPage(i)" *ngIf="i > 0">
+              <span class="icon">🏴</span> Set as first page
+            </button>
+            <input *ngIf="renamingIndex === i"
+                   [(ngModel)]="pages[i].name"
+                   (blur)="finishRename(i)"
+                   (keyup.enter)="finishRename(i)" />
+            <button *ngIf="renamingIndex !== i" class="menu-item" (click)="startRename(i)">
+              <span class="icon">✏️</span> Rename
+            </button>
+            <button class="menu-item" (click)="duplicatePage(i)">
+              <span class="icon">📋</span> Copy
+            </button>
+            <button class="menu-item" (click)="duplicatePage(i)">
+              <span class="icon">📑</span> Duplicate
+            </button>
+            <button class="menu-item delete" (click)="deletePage(i)">
+              <span class="icon">🗑️</span> Delete
+            </button>
+          </div>
+          <button class="menu-button"
+                  (click)="toggleContextMenu(i, $event)">
+            ...
+          </button>
+        </div>        
+        <button *ngIf="i < pages.length - 1"
+                class="add-between-button"
+                (click)="addPage(i + 1)"
+                (mouseover)="hoveredIndex = i + 0.5"
+                (mouseleave)="hoveredIndex = null">
+          +
+        </button>
+      </ng-container>      
+      <button class="add-end-button" (click)="addPage(pages.length)">+ Add page</button>
+    </div>
+  </div>
+  <div class="page-content">
+    <p>Active Page: {{ activePage.name }}</p>
+  </div>
+</div>
