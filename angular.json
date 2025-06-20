@@ -14,18 +14,18 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/safis-assessemnt",
-            "index": "src/src/index.html",
-            "main": "src/src/main.ts",
+            "index": "index.html",
+            "main": "main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/src/favicon.ico",
-              "src/src/assets"
+              "favicon.ico",
+              "assets"
             ],
             "styles": [
-              "src/src/styles.css"
+              "styles.css"
             ],
             "scripts": []
           },
